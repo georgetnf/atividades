@@ -1,0 +1,53 @@
+/* Custom CSS para o tema Kabum Clone */
+
+/* Cor principal (azul) */
+.bg-blue {
+    background-color: #007bff !important; /* Exemplo de azul Kabum */
+}
+
+/* Cor de alerta (laranja/amarelo) */
+.btn-warning {
+    background-color: #ff9900 !important; /* Laranja/Amarelo Kabum */
+    border-color: #ff9900 !important;
+    color: #fff !important;
+}
+
+.btn-warning:hover {
+    background-color: #e68a00 !important;
+    border-color: #e68a00 !important;
+}
+
+/* Estilo para links do rodapé */
+.main-footer a {
+    color: rgba(255, 255, 255, 0.75); /* Branco suave */
+}
+
+.main-footer a:hover {
+    color: #fff; /* Branco puro no hover */
+}
+
+/* Estilo para o offcanvas */
+.offcanvas {
+    background-color: #212529 !important; /* Cor de fundo escura */
+}
+
+.offcanvas .nav-link {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.offcanvas .nav-link.active,
+.offcanvas .nav-link:hover {
+    color: #fff !important;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Ajustes gerais de layout */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1; /* Permite que o conteúdo principal ocupe o espaço restante */
+}

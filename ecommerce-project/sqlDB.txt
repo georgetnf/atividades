@@ -1,0 +1,87 @@
+-- Criação da tabela 'usuarios'
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    endereco TEXT NOT NULL
+);
+
+-- Criação da tabela 'categorias'
+CREATE TABLE categorias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL UNIQUE
+);
+
+-- Criação da tabela 'produtos'
+CREATE TABLE produtos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL,
+    imagem_url VARCHAR(255),
+    categoria_id INT NOT NULL,
+    estoque INT DEFAULT 0,
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+);
+
+-- Criação da tabela 'pedidos'
+CREATE TABLE pedidos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(50) DEFAULT 'pendente',
+    total DECIMAL(10, 2) NOT NULL,
+    endereco_entrega TEXT NOT NULL,
+    metodo_pagamento VARCHAR(50) NOT NULL,
+    observacoes TEXT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+-- Criação da tabela 'itens_pedido'
+CREATE TABLE itens_pedido (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pedido_id INT NOT NULL,
+    produto_id INT NOT NULL,
+    quantidade INT NOT NULL,
+    preco_unitario DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
+    FOREIGN KEY (produto_id) REFERENCES produtos(id)
+);
+
+-- Inserção da categoria 'Informática'
+-- Garante que a categoria exista antes de inserir os produtos.
+-- Se você já tem 'Informática' com outro ID, ajuste o 'categoria_id' nos INSERTs abaixo.
+INSERT INTO categorias (id, nome) VALUES (1, 'Informática');
+
+
+-- Inserção de 20 produtos de informática na tabela 'produtos'
+INSERT INTO produtos (nome, preco, imagem_url, categoria_id, estoque) VALUES
+('Placa de Vídeo NVIDIA GeForce RTX 4070 Super 12GB', 4599.99, 'https://m.media-amazon.com/images/I/719h1D093cL._AC_SL1500_.jpg', 1, 50),
+('Processador AMD Ryzen 7 7800X3D, 5.0GHz', 2899.99, 'https://m.media-amazon.com/images/I/61Xb5z2s9-L._AC_SL1500_.jpg', 1, 30),
+('Memória RAM Kingston Fury Beast DDR5 16GB (2x8GB) 6000MHz', 699.99, 'https://m.media-amazon.com/images/I/717-q61C0hL._AC_SL1500_.jpg', 1, 100),
+('SSD Kingston NV2 1TB NVMe PCIe Gen4 x4', 399.99, 'https://m.media-amazon.com/images/I/61Z6v+08YBL._AC_SL1500_.jpg', 1, 80),
+('Monitor Gamer LG UltraGear 27GN65R, 27 Polegadas, Full HD, 144Hz, 1ms', 1299.99, 'https://m.media-amazon.com/images/I/71yP+2j02VL._AC_SL1500_.jpg', 1, 40),
+('Teclado Mecânico HyperX Alloy Origins Core RGB, Switch HyperX Red', 449.99, 'https://m.media-amazon.com/images/I/715Qe-8D2PL._AC_SL1500_.jpg', 1, 60),
+('Mouse Gamer Logitech G502 HERO, RGB, 25600 DPI', 299.99, 'https://m.media-amazon.com/images/I/61N+tq1y4jL._AC_SL1500_.jpg', 1, 75),
+('Webcam Logitech C920s Full HD 1080p, com Capa de Privacidade', 349.99, 'https://m.media-amazon.com/images/I/71a2rQ240TL._AC_SL1500_.jpg', 1, 90),
+('Fonte de Alimentação Corsair RM750e, 750W, 80 Plus Gold, Modular', 899.99, 'https://m.media-amazon.com/images/I/718y6K9Y0BL._AC_SL1500_.jpg', 1, 25),
+('Gabinete Gamer Pichau Kazan 2, Lateral de Vidro Temperado, Preto', 289.99, 'https://m.media-amazon.com/images/I/61k8wD-q02L._AC_SL1500_.jpg', 1, 35),
+('Processador Intel Core i5-12400F', 999.99, 'https://m.media-amazon.com/images/I/61-9x4U2SUL._AC_SL1500_.jpg', 1, 60),
+('Placa Mãe Gigabyte B660M AORUS PRO AX DDR4', 989.00, 'https://m.media-amazon.com/images/I/71x4f4Q2GCL._AC_SL1500_.jpg', 1, 40),
+('Memória RAM Corsair Vengeance LPX 8GB DDR4 3200MHz', 189.99, 'https://m.media-amazon.com/images/I/61-H-4z7GUL._AC_SL1500_.jpg', 1, 120),
+('SSD Western Digital Green 480GB SATA III', 249.00, 'https://m.media-amazon.com/images/I/71+G77T-BKL._AC_SL1500_.jpg', 1, 90),
+('Monitor AOC Hero 24G2SP 23.8" Full HD 165Hz 1ms', 999.00, 'https://m.media-amazon.com/images/I/71XvHk9DqQL._AC_SL1500_.jpg', 1, 50),
+('Headset Gamer Redragon Zeus X H510', 279.90, 'https://m.media-amazon.com/images/I/71jC9X+5yGL._AC_SL1500_.jpg', 1, 80),
+('Mousepad Gamer HyperX Fury S Speed Edition', 79.90, 'https://m.media-amazon.com/images/I/71M0rXp3pL._AC_SL1500_.jpg', 1, 150),
+('Caixa de Som JBL Quantum Duo RGB', 699.00, 'https://m.media-amazon.com/images/I/71Lh5M-1-AL._AC_SL1500_.jpg', 1, 30),
+('Cooler para Processador DeepCool AK400', 179.90, 'https://m.media-amazon.com/images/I/61p-k8Z2RcL._AC_SL1500_.jpg', 1, 65),
+('Adaptador WiFi TP-Link Archer T3U Plus AC1300', 99.90, 'https://m.media-amazon.com/images/I/61dC6Qy-7tL._AC_SL1500_.jpg', 1, 100);
+
+
+ALTER TABLE metodos_pagamento MODIFY COLUMN tipo ENUM('credito', 'pix', 'boleto') NOT NULL DEFAULT 'credito', ADD COLUMN chave_pix VARCHAR(140), ADD COLUMN codigo_boleto VARCHAR(48);
+ALTER TABLE pedidos
+ADD COLUMN metodo_pagamento_tipo ENUM('credito', 'pix', 'boleto'),
+ADD COLUMN chave_pix VARCHAR(140),
+ADD COLUMN codigo_boleto VARCHAR(48),
+ADD COLUMN vencimento_boleto DATE;
